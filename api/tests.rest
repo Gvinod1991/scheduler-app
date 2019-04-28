@@ -1,0 +1,7 @@
+POST http://localhost:5000/api/user/new HTTP/1.1
+content-type:application/json
+
+{
+    "name":"",
+    "email_id":"satya.godti@bookingjini.com"
+}

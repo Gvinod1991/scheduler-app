@@ -1,8 +1,11 @@
 //Import Dependencies
 const express= require('express')
-
+const bodyParser=require('body-parser')
+//Db connection import
+let _db=require('./db');
 //App Initialization 
 let app=express(); 
+app.use(bodyParser.json())
 
 //Import User routes
 let user=require('./routes/user.route')
