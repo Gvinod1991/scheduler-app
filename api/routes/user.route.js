@@ -5,7 +5,8 @@ const router =express.Router()
 let userController=require('../controllers/user.controller')
 
 //Define The Routes for the user
-router.get('/get',userController.test)
 router.post('/new',userController.newUser)
+router.post('/login',userController.login)
 
+//Export the router
 module.exports=router;

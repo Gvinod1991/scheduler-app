@@ -2,7 +2,7 @@ const mongoose=require('mongoose');
 
 let _db;
 let db_url='mongodb://localhost:27017/scheduler-app';
-mongoose.connect(db_url,{useNewUrlParser:true});
+mongoose.connect(db_url,{useNewUrlParser:true, useCreateIndex: true});
 mongoose.Promise=global.Promise;
 
 _db=mongoose.connection;//assign db connection to _db global variable
