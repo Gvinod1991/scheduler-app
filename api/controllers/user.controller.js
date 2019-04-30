@@ -4,8 +4,11 @@ let jwt = require('jsonwebtoken');
 let config= require('../config');
 //New User Sign up
 exports.newUser=(req,res)=>{
-    let password=Math.random().toString(36).slice(-8);
-    let hashedPassword=bcrypt.hashSync(password, 10);//Generate random password and hash it using bcrypt
+    let password=typeof(req.body.password)==='string' && req.body.password.length >=8 ? req.body.password :false;
+    let hashedPassword;
+    if(password){
+        hashedPassword=bcrypt.hashSync(password, 10);//Generate random password and hash it using bcrypt
+    }
     //New User Model
     let userModel=new User({
         name:req.body.name,
@@ -16,11 +19,11 @@ exports.newUser=(req,res)=>{
     userModel.save((err)=>{
         FIXME:
         /**
-         * Send the password to user's email after successful save
-         * Remove password from response
+         * Send the activation link to user's email after successful registration(optional)
+         * 
          */
         if(!err){
-            res.send({"status":1,message:"Registration successful",password:password})
+            res.send({"status":1,message:"Registration successful"})
         }
         else{
             res.status(200);
