@@ -2,6 +2,7 @@ const User=require('../models/user.model');
 let bcrypt = require('bcrypt');//TO Hash the password
 let jwt = require('jsonwebtoken');
 let config= require('../config');
+let helpers=require('../lib/helpers')
 //New User Sign up
 exports.newUser=(req,res)=>{
     let password=typeof(req.body.password)==='string' && req.body.password.length >=8 ? req.body.password :false;
@@ -23,6 +24,15 @@ exports.newUser=(req,res)=>{
          * 
          */
         if(!err){
+            let message={
+                from:'donotReply@jslab.co',
+                to:'satya.narayan@5elements.co.in',
+                subject:'Scheduler App Account Confirmation',
+                html: '<a href="jslab.co">Confirm Your Email Address</a><p>We just want your confirm you</p'
+            }
+            helpers.transporter.sendMail(message,(info)=>{
+                console.log('Preview URL: ' + nodemailer.getTestMessageUrl(info));
+            })
             res.send({"status":1,message:"Registration successful"})
         }
         else{
